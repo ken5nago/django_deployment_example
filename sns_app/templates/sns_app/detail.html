@@ -1,0 +1,24 @@
+{% extends 'sns_app/base.html' %}
+
+{% block header %}
+<div class='text-center'>
+    <div class="alert alert-info" role="alert">
+        <h3>Detail Page</h3>
+    </div>
+</div>
+{% endblock header %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <div class="alert alert-secondary" role="alert">
+        <p>タイトル：{{ object.title }}</p>
+        <p>投稿者：{{ object.author }}</p>
+        <p><img src="{{ object.snsimages.url }}" alt="" width=300></p>
+        <a href="{% url 'good' object.pk %}" class="btn btn-primary active" role="button" aria-pressed="true">good</a>
+        <a href="{% url 'read' object.pk %}" class="btn btn-secondary active" role="button" aria-pressed="true">read</a>
+    </div>
+    <a href="{% url 'logout' %}">logout</a>
+{% else %}
+Please Login
+{% endif %}
+{% endblock content %}

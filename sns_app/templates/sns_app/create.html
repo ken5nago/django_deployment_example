@@ -1,0 +1,18 @@
+{% extends 'sns_app/base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<form method='POST' enctype='multipart/form-data'>{% csrf_token %}  {% comment %} enctype=複数のデータを扱うよ指定 {% endcomment %}
+
+    <p>title: <input type="text" name='title'></p>  {% comment %} nameで指定した'title'は、その名前で名前でデータを受け取るよ {% endcomment %}
+    <p>content: <input type="text" name='content'></p>
+    <p><input type="file" name='snsimages'></p>
+    <input type="hidden" name='author' value='{{ user.username }}'>
+    <input type="submit" value='create'>  {% comment %} valueは初期値設定(初めから表示される言葉) {% endcomment %}
+
+</form>
+{% else %}
+<a href="{% url 'login' %}">login</a>
+{% endif %}
+
+{% endblock content %}
